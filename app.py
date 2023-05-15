@@ -12,9 +12,8 @@ st.image("./baby.jpg")
 st.write(
     """Imagine a world where the rhythm of life is changing. Where the joyous cries of newborns become less frequent, and the sound of children playing in the streets grows faint. This is the reality we face today, a world grappling with declining birth rates.
 
-Being in Switzerland born, raised by Filipino parents, 22-year old, gen-Z male. I have noticed many generational and cultural differences between my parents time in the philippines and 
-my time in Switzerland regarding family sizes. Both my parents are from the generation X and their family sizes seem completely poles apart compared to my generation. At family sizes from 7 to 10
-children, I would suppose that there were numerous reasons and events that had happened during this timeframe of 60 years.
+Born and raised in Switzerland to Filipino parents, I am a 22-year-old male belonging to Generation Z. I have observed significant generational and cultural disparities regarding 
+family sizes between my parents' experiences in the Philippines and my own upbringing in Switzerland. While my parents are part of Generation X, their family sizes differ greatly from those of my generation. With family sizes ranging from 7 to 10 children, it is evident that numerous factors and events have shaped this significant shift over the span of 60 years.
 
 I asked myself, has the birthrate during this time decreased? Should there be a decline, is it because generational or cultural reasons? And how would it affect the future?"""
 )
