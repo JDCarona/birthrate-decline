@@ -167,8 +167,8 @@ life_expectancy_df = pd.read_csv("./data_clean/life_expectancy_switzerland.csv")
 fig = px.line(
     life_expectancy_df,
     x="Year",
-    y="Life expectancy at birth (historical)",
-    title="Life Expectancy in Switzerland",
+    y="Age",
+    title="Life Expectancy and median age in Switzerland",
 )
 
 median_age = pd.read_csv("./data_clean/median_age_switzerland.csv")
