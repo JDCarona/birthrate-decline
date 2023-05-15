@@ -32,13 +32,11 @@ cloudpickle==2.2.1
 colorama==0.4.4
 colorful==0.5.5
 comm==0.1.1
-command-not-found==0.3
 contextlib2==21.6.0
 contourpy==1.0.7
 cryptography==3.4.8
 cupshelpers==1.0
 cycler==0.11.0
-dask==2023.4.1
 dbus-python==1.2.18
 debugpy==1.6.4
 decorator==4.4.2
