@@ -191,7 +191,7 @@ Addressing the challenges posed by declining birth rates requires a multifaceted
 
 Family-Friendly Policies: Governments can implement policies that support families, such as parental leave, flexible work arrangements, and affordable childcare. These measures can alleviate the financial and logistical burdens associated with raising children, making it more feasible for individuals to start families:
 
-In the case of Switzerland in the year of 2020, the people voted that fathers are allowed to have a 2 week paid parental leave that one take during the first six months after the baby has been born.
+In the case of Switzerland in the year of 2020, the people voted that fathers are allowed to have a 2 week paid parental leave that one can take during the first six months after the baby has been born.
 
 And in the events of Japan, the government has decided to double the monthly child allowance from 5'000 ¥ to 10'000 ¥.
 """
