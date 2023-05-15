@@ -95,7 +95,7 @@ with tab4:
 with tab5:
    st.dataframe(questions[questions["Construct Name"] == "Health"][['Full Question ']], use_container_width=True)
    
-st.caption("""The chat above shows the average of all answers per question. Questions 7 was a free text question and therefore not visible in the chart.""")
+st.caption("""The chat above shows the average of all answers per question. Questions 7 was a free text question and therefore not visible in the chart. The details of each question can be found inside each tab.""")
 
 
 st.subheader("Financial Factors")
