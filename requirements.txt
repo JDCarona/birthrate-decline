@@ -25,7 +25,6 @@ cffi==1.15.1
 chardet==4.0.0
 charset-normalizer==3.1.0
 chart-studio==1.1.0
-chrome-gnome-shell==0.0.0
 click==8.0.3
 click-plugins==1.1.1
 cligj==0.7.2
