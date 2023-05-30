@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 st.title("Falling Behind: A Global Look at Declining Birth Rates and its Consequences")
-st.caption('23rd of May 2023. Jonathan Carona')
+st.caption('15th of May 2023. Jonathan Carona')
 
 st.image("./baby.jpg")
 
@@ -22,13 +22,6 @@ st.header("Consistent birthrate declination")
 st.write(
     """To answer my first question, it is interesting to observe the birthrate evolution on a global scale. I discovered a consistent pattern of declining birth rates worldwide. This phenomenon is not limited to a particular region or culture; it is a global trend that has been observed over the past few decades."""
 )
-colorscale = [
-    [0, '#00FFFF'],  # light cyan
-    [0.25, '#9370DB'],  # medium purple
-    [0.5, '#BA55D3'],  # medium orchid
-    [0.75, '#483D8B'],  # dark slate blue
-    [1, '#00008B']  # dark blue
-]
 
 birth_rate_df = pd.read_csv("./data_clean/birth_rate_clean.csv")
 
@@ -40,13 +33,13 @@ fig = px.choropleth(
     animation_frame="Year",  # add animation slider
     hover_name="Country_Name",
     range_color=[0, 4],
-    color_continuous_scale=colorscale
+    color_continuous_scale='RdYlGn_r'
 )
 
 
 # Remove antarctica
 fig.update_geos(fitbounds="locations", visible=False, showframe=False)
-fig.update_layout(geo=dict(bgcolor= 'rgba(0,0,0,0)'))
+
 # show the figure
 fig.update_layout(title="Birth Rate by Country (1960-2020)", dragmode=False, coloraxis=dict(colorbar=dict(orientation='h', y=-0.15)), height=600, width=689)
 
@@ -62,90 +55,55 @@ Moreover, this decline in birth rates is not confined to developed nations. Even
 
 st.header("Possible reasons for the decline")
 st.write(
-    """Understanding the reasons behind the declining birth rates is crucial to gaining insight into this global phenomenon. Several factors contribute to this trend, and they often intertwine in complex ways.
-    A possible way to find out possible reasons for the decline is to ask the people themselves, who are capable of having children. 
+    """Understanding the reasons behind the declining birth rates is crucial to gaining insight into this global phenomenon. Several factors contribute to this trend, and they often intertwine in complex ways:
 
-In a survey conducted by graduate researchers from Rider University in Lawrenceville NJ where they asked questions towards women who have children and women who do not have children on childlessness. 
+In a survey conducted by graduate researchers from Rider University in Lawrenceville NJ where they asked questions towards unmarried and married women on childlessness. 
 The researchers asked 30 questions in the fields financial, choice, outside influences and health. Each question is rated between 1 and 5 indicating how true and significant it is."""
 )
 
-st.subheader("Financial Factors")
-
-stacked_df = pd.read_csv("./data_clean/stacked_df.csv")
-fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][:6])], x="0", y="text", color='hasChild', orientation='h', barmode='overlay')
-fig.update_layout(width=800, height=700, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargroupgap=0.5, xaxis_title="Rating", yaxis_title="Statements")
-# fig.update_layout({
-# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-# })
-
-
-annotations = []  # List to store annotations
-startplace = 0.5
-for i in stacked_df['text'][:6]:
-    annotation = dict(
-        x=1, y=startplace,
-        text=i,
-        font=dict(family="Arial", size=15, color="#FAFAFA"),
-        showarrow=False,
-        xanchor='left',
-        align='left'
+tab1, tab2, tab3, tab4, tab5 = st.tabs(
+    [
+        "Data",
+        "Financial Questions",
+        "Choice Questions",
+        "External Influence Questions",
+        "Health Questions",
+    ]
+)
+questions = pd.read_csv("./data_clean/childlessness_questions.csv")
+questions = questions.set_index("Question Code")
+with tab1:
+    question_mean = pd.read_csv("./data_clean/child_survey_mean.csv")
+    st.plotly_chart(
+        px.bar(
+            question_mean, x="Question", y="Mean", title="Average Rating of Questions"
+        ),
+        use_container_width=True,
     )
-    startplace += 1
-    annotations.append(annotation)
-fig.update_layout(annotations=annotations)  # Add annotations to the figure
-fig.update_layout(legend=dict(
-    yanchor="bottom",
-    y=0.05,
-    xanchor="left",
-    x=0.95
-))
 
-st.plotly_chart(fig, use_container_width=True, height=700)
+with tab2:
+   st.dataframe(questions[questions["Construct Name"] == "Financial"][['Full Question ']], use_container_width=True)
 
 
+with tab3:
+   st.dataframe(questions[questions["Construct Name"] == "Choice"][['Full Question ']], use_container_width=True)
+   
+
+with tab4:
+   st.dataframe(questions[questions["Construct Name"] == "Outside Influences"][['Full Question ']], use_container_width=True)
+   
+
+with tab5:
+   st.dataframe(questions[questions["Construct Name"] == "Health"][['Full Question ']], use_container_width=True)
+   
+st.caption("""The chat above shows the average of all answers per question. Questions 7 was a free text question and therefore not visible in the chart. The details of each question can be found inside each tab.""")
+
+
+st.subheader("Financial Factors")
 st.write(
     """The survey indicates that financial considerations play a significant role in women's decision-making about having children. Regarding the financial questions, all received relatively high ratings, suggesting that financial stability, the cost of raising children, and the financial judgment faced by women who choose not to have children are important factors influencing their decisions."""
 )
 st.subheader("Choice and Societal Perception")
-
-colorscale = [
-    [0, '#00FFFF'],  # light cyan
-    [0.25, '#9370DB'],  # medium purple
-    [0.5, '#BA55D3'],  # medium orchid
-    [0.75, '#483D8B'],  # dark slate blue
-    [1, '#00008B']  # dark blue
-]
-
-fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][6:10])], x="0", y="text", color='hasChild', orientation='h', barmode='overlay')
-fig.update_layout(width=800, height=700, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargroupgap=0.5, xaxis_title="Rating", yaxis_title="Statements")
-# fig.update_layout({
-# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-# })
-
-
-annotations = []  # List to store annotations
-startplace = 0.5
-for i in stacked_df['text'][6:10]:
-    annotation = dict(
-        x=1, y=startplace,
-        text=i,
-        font=dict(family="Arial", size=15, color="#FAFAFA"),
-        showarrow=False,
-        xanchor='left',
-        align='left'
-    )
-    startplace += 1
-    annotations.append(annotation)
-fig.update_layout(annotations=annotations)  # Add annotations to the figure
-fig.update_layout(legend=dict(
-    yanchor="bottom",
-    y=0.05,
-    xanchor="left",
-    x=0.95
-))
-st.plotly_chart(fig, use_container_width=True, height=700)
-
-
 st.write(
     """
 Questions related to choice and societal perception also received notable ratings. It is evident that women's decisions about having children are influenced by the perception of society and the judgments they may face. While the majority agreed that it is reasonable for a woman to choose not to have a child, there were varying opinions about societal perception and the perceived impact of a woman's decision on her value and character.
@@ -153,36 +111,6 @@ Questions related to choice and societal perception also received notable rating
 )
 
 st.subheader("External Influences")
-
-fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][10:18])], x="0", y="text", color='hasChild', orientation='h', barmode='overlay')
-fig.update_layout(width=800, height=700, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargroupgap=0.5, xaxis_title="Rating", yaxis_title="Statements")
-# fig.update_layout({
-# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-# })
-
-
-annotations = []  # List to store annotations
-startplace = 0.5
-for i in stacked_df['text'][10:18]:
-    annotation = dict(
-        x=1, y=startplace,
-        text=i,
-        font=dict(family="Arial", size=15, color="#FAFAFA"),
-        showarrow=False,
-        xanchor='left',
-        align='left'
-    )
-    startplace += 1
-    annotations.append(annotation)
-fig.update_layout(annotations=annotations)  # Add annotations to the figure
-fig.update_layout(legend=dict(
-    yanchor="bottom",
-    y=0.05,
-    xanchor="left",
-    x=0.95
-))
-st.plotly_chart(fig, use_container_width=True, height=700)
-
 st.write(
     """
 External influences, including family, religion, and peer pressure, were acknowledged but received somewhat lower ratings. While these factors play a role, they appear to have a slightly lesser impact on women's decisions compared to financial and choice-related factors.
@@ -190,35 +118,6 @@ External influences, including family, religion, and peer pressure, were acknowl
 )
 
 st.subheader("Health Considerations")
-fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][18:28])], x="0", y="text", color='hasChild', orientation='h', barmode='overlay')
-fig.update_layout(width=800, height=900, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargroupgap=0.5, xaxis_title="Rating", yaxis_title="Statements")
-# fig.update_layout({
-# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-# })
-
-
-annotations = []  # List to store annotations
-startplace = 0.5
-for i in stacked_df['text'][18:28]:
-    annotation = dict(
-        x=1, y=startplace,
-        text=i,
-        font=dict(family="Arial", size=15, color="#FAFAFA"),
-        showarrow=False,
-        xanchor='left',
-        align='left'
-    )
-    startplace += 1
-    annotations.append(annotation)
-fig.update_layout(annotations=annotations)  # Add annotations to the figure
-fig.update_layout(legend=dict(
-    yanchor="bottom",
-    y=0.05,
-    xanchor="left",
-    x=0.95
-))
-st.plotly_chart(fig, use_container_width=True, height=900)
-
 st.write(
     """
 Health concerns received mixed ratings. Some questions indicated that health risks and age-related fertility decline were recognized as factors influencing women's decisions about having children, albeit not to a significant extent."""
@@ -230,102 +129,31 @@ st.write(
 As birth rates decline, the average age of the population increases. This demographic shift poses challenges for healthcare systems, pension programs, and social welfare services. The proportion of older adults grows, putting pressure on the working-age population to support the elderly."""
 )
 
-colorscale = [
-    [0, '#00FFFF'],  # light cyan
-    [0.25, '#9370DB'],  # medium purple
-    [0.5, '#BA55D3'],  # medium orchid
-    [0.75, '#483D8B'],  # dark slate blue
-    [1, '#00008B']  # dark blue
-]
-colorscale_two = [
-    '#00FFFF',  # light cyan
-    '#9370db',  # medium purple
-    '#BA55D3',  # dark blue
-    '#483D8B',  # medium orchid
-    '#00008B',  # dark blue
-]
-
 swiss_pyramid = pd.read_csv("./Switzerland-2021.csv")
 fig = px.bar(
     orientation="h",
     y=swiss_pyramid["Age"],
     x=-swiss_pyramid["M"],
-    title='Age pyramid of men and women in Switzerland'
-    
 )
 
 layout = go.Layout(
-    yaxis=go.layout.YAxis(title="Age group"),
+    yaxis=go.layout.YAxis(title="Age"),
     xaxis=go.layout.XAxis(
         range=[-400_000, 400_000],
         tickvals=[-300_000, -200_000, -100_000, 0, 100_000, 200_000, 300_000],
         ticktext=[300_000, 200_000, 100_000, 0, 100_000, 200_000, 300_000],
-        title="Population count",
+        title="Number",
     ),
     barmode="overlay",
     bargap=0.1,
 )
 fig.update_layout(layout)
-fig.update_traces(
-    selector=dict(type="bar"),
-    marker=dict(color=[
-        colorscale_two[3], 
-        colorscale_two[3], 
-        colorscale_two[0], 
-        colorscale_two[0], 
-        colorscale_two[3], 
-        colorscale_two[3], 
-        colorscale_two[3], 
-        colorscale_two[3], 
-        colorscale_two[3], 
-        colorscale_two[3],
-        colorscale_two[1],
-        colorscale_two[1],
-        colorscale_two[3],
-        colorscale_two[3],
-        colorscale_two[3],
-        colorscale_two[3],
-        colorscale_two[3],
-        colorscale_two[3],
-        colorscale_two[3],
-        colorscale_two[3],
-        colorscale_two[3],
-    ]),
-)
 
 fig.add_trace(
     go.Bar(
-        orientation="h", y=swiss_pyramid["Age"], x=swiss_pyramid["F"], showlegend=False,
-        marker=dict(color=[
-            colorscale_two[2], 
-            colorscale_two[2], 
-            colorscale_two[0], 
-            colorscale_two[0], 
-            colorscale_two[2], 
-            colorscale_two[2], 
-            colorscale_two[2], 
-            colorscale_two[2], 
-            colorscale_two[2], 
-            colorscale_two[2],
-            colorscale_two[1],
-            colorscale_two[1],
-            colorscale_two[2],
-            colorscale_two[2],
-            colorscale_two[2],
-            colorscale_two[2],
-            colorscale_two[2],
-            colorscale_two[2],
-            colorscale_two[2],
-            colorscale_two[2],
-            colorscale_two[2],
-    ])
+        orientation="h", y=swiss_pyramid["Age"], x=swiss_pyramid["F"], showlegend=False
     )
 )
-
-
-
-
-
 
 st.plotly_chart(fig, use_container_width=True)
 st.caption(
