@@ -6,4 +6,4 @@ flask-cors
 pyforest
 matplotlib
 pywaffle
-PIL
+Pillow
