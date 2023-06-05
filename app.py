@@ -4,10 +4,20 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 
-st.title("Falling Behind: A Global Look at Declining Birth Rates and its Consequences")
-st.caption('23rd of May 2023. Jonathan Carona')
+from survey_plotter import plot_pictogram, plot_employment_status, plot_children, plot_financial_factors, plot_choice_factors, plot_external_influences_factors, plot_health_factors
 
-st.image("./baby.jpg")
+st.set_page_config(layout="centered")
+css='''
+<style>
+    section.main > div {max-width:800px}
+</style>
+'''
+st.markdown(css, unsafe_allow_html=True)
+
+st.title("Falling Behind: A Global Look at Declining Birth Rates and its Consequences")
+st.caption('5th June 2023. Jonathan Carona. Lucerne University of Applied Sciences. Data Story')
+
+st.image("./jeremy.jpg")
 
 st.write(
     """Imagine a world where the rhythm of life is changing. Where the joyous cries of newborns become less frequent, and the sound of children playing in the streets grows faint. This is the reality we face today, a world grappling with declining birth rates.
@@ -20,12 +30,12 @@ I asked myself, has the birthrate during this time decreased? Should there be a 
 
 st.header("Consistent birthrate declination")
 st.write(
-    """To answer my first question, it is interesting to observe the birthrate evolution on a global scale. I discovered a consistent pattern of declining birth rates worldwide. This phenomenon is not limited to a particular region or culture; it is a global trend that has been observed over the past few decades."""
+    """To answer the first question, it is interesting to observe the birthrate evolution on a global scale. There is a consistent pattern of declining birth rates worldwide. This phenomenon is not limited to a particular region or culture; it is a global trend that has been observed over the past few decades."""
 )
 colorscale = [
     [0, '#00FFFF'],  # light cyan
-    [0.25, '#9370DB'],  # medium purple
-    [0.5, '#BA55D3'],  # medium orchid
+    [0.25, '#BA55D3'],  # medium purple
+    [0.5, '#9370DB'],  # medium orchid
     [0.75, '#483D8B'],  # dark slate blue
     [1, '#00008B']  # dark blue
 ]
@@ -48,9 +58,9 @@ fig = px.choropleth(
 fig.update_geos(fitbounds="locations", visible=False, showframe=False)
 fig.update_layout(geo=dict(bgcolor= 'rgba(0,0,0,0)'))
 # show the figure
-fig.update_layout(title="Birth Rate by Country (1960-2020)", dragmode=False, coloraxis=dict(colorbar=dict(orientation='h', y=-0.15)), height=600, width=689)
+fig.update_layout(title="Birth Rate by Country (1960-2020)", coloraxis=dict(colorbar=dict(orientation='h', y=-0.15)), height=600)
 
-st.plotly_chart(fig, use_container_width=True, height=600, width=689)
+st.plotly_chart(fig, use_container_width=True, height=600)
 
 
 
@@ -66,169 +76,76 @@ st.write(
     A possible way to find out possible reasons for the decline is to ask the people themselves, who are capable of having children. 
 
 In a survey conducted by graduate researchers from Rider University in Lawrenceville NJ where they asked questions towards women who have children and women who do not have children on childlessness. 
-The researchers asked 30 questions in the fields financial, choice, outside influences and health. Each question is rated between 1 and 5 indicating how true and significant it is."""
-)
+The researchers asked 30 questions in the fields financial, choice, outside influences and health. Each question is rated from 1 to 5 indicating how true and significant it is.
 
-st.subheader("Financial Factors")
-
-stacked_df = pd.read_csv("./data_clean/stacked_df.csv")
-fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][:6])], x="0", y="text", color='hasChild', orientation='h', barmode='overlay')
-fig.update_layout(width=800, height=700, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargroupgap=0.5, xaxis_title="Rating", yaxis_title="Statements")
-# fig.update_layout({
-# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-# })
-
-
-annotations = []  # List to store annotations
-startplace = 0.5
-for i in stacked_df['text'][:6]:
-    annotation = dict(
-        x=1, y=startplace,
-        text=i,
-        font=dict(family="Arial", size=15, color="#FAFAFA"),
-        showarrow=False,
-        xanchor='left',
-        align='left'
-    )
-    startplace += 1
-    annotations.append(annotation)
-fig.update_layout(annotations=annotations)  # Add annotations to the figure
-fig.update_layout(legend=dict(
-    yanchor="bottom",
-    y=0.05,
-    xanchor="left",
-    x=0.95
-))
-
-st.plotly_chart(fig, use_container_width=True, height=700)
-
-
-st.write(
-    """The survey indicates that financial considerations play a significant role in women's decision-making about having children. Regarding the financial questions, all received relatively high ratings, suggesting that financial stability, the cost of raising children, and the financial judgment faced by women who choose not to have children are important factors influencing their decisions."""
-)
-st.subheader("Choice and Societal Perception")
-
-colorscale = [
-    [0, '#00FFFF'],  # light cyan
-    [0.25, '#9370DB'],  # medium purple
-    [0.5, '#BA55D3'],  # medium orchid
-    [0.75, '#483D8B'],  # dark slate blue
-    [1, '#00008B']  # dark blue
-]
-
-fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][6:10])], x="0", y="text", color='hasChild', orientation='h', barmode='overlay')
-fig.update_layout(width=800, height=700, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargroupgap=0.5, xaxis_title="Rating", yaxis_title="Statements")
-# fig.update_layout({
-# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-# })
-
-
-annotations = []  # List to store annotations
-startplace = 0.5
-for i in stacked_df['text'][6:10]:
-    annotation = dict(
-        x=1, y=startplace,
-        text=i,
-        font=dict(family="Arial", size=15, color="#FAFAFA"),
-        showarrow=False,
-        xanchor='left',
-        align='left'
-    )
-    startplace += 1
-    annotations.append(annotation)
-fig.update_layout(annotations=annotations)  # Add annotations to the figure
-fig.update_layout(legend=dict(
-    yanchor="bottom",
-    y=0.05,
-    xanchor="left",
-    x=0.95
-))
-st.plotly_chart(fig, use_container_width=True, height=700)
-
-
-st.write(
-    """
-Questions related to choice and societal perception also received notable ratings. It is evident that women's decisions about having children are influenced by the perception of society and the judgments they may face. While the majority agreed that it is reasonable for a woman to choose not to have a child, there were varying opinions about societal perception and the perceived impact of a woman's decision on her value and character.
+In this survey, 124 women of different backgrounds and status were asked:
 """
 )
 
-st.subheader("External Influences")
-
-fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][10:18])], x="0", y="text", color='hasChild', orientation='h', barmode='overlay')
-fig.update_layout(width=800, height=700, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargroupgap=0.5, xaxis_title="Rating", yaxis_title="Statements")
-# fig.update_layout({
-# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-# })
+col1, col2 = st.columns(2)
+with col1:
+   st.pyplot(fig=plot_children(), use_container_width=True)
 
 
-annotations = []  # List to store annotations
-startplace = 0.5
-for i in stacked_df['text'][10:18]:
-    annotation = dict(
-        x=1, y=startplace,
-        text=i,
-        font=dict(family="Arial", size=15, color="#FAFAFA"),
-        showarrow=False,
-        xanchor='left',
-        align='left'
-    )
-    startplace += 1
-    annotations.append(annotation)
-fig.update_layout(annotations=annotations)  # Add annotations to the figure
-fig.update_layout(legend=dict(
-    yanchor="bottom",
-    y=0.05,
-    xanchor="left",
-    x=0.95
-))
-st.plotly_chart(fig, use_container_width=True, height=700)
+with col2:
+   st.pyplot(fig=plot_employment_status(), use_container_width=True)
+
+
+
+st.pyplot(fig=plot_pictogram(), use_container_width=True)
+
+st.subheader("Financial factors")
+
+st.plotly_chart(plot_financial_factors(), use_container_width=True, height=400)
 
 st.write(
     """
-External influences, including family, religion, and peer pressure, were acknowledged but received somewhat lower ratings. While these factors play a role, they appear to have a slightly lesser impact on women's decisions compared to financial and choice-related factors.
-"""
-)
-
-st.subheader("Health Considerations")
-fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][18:28])], x="0", y="text", color='hasChild', orientation='h', barmode='overlay')
-fig.update_layout(width=800, height=900, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargroupgap=0.5, xaxis_title="Rating", yaxis_title="Statements")
-# fig.update_layout({
-# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-# })
-
-
-annotations = []  # List to store annotations
-startplace = 0.5
-for i in stacked_df['text'][18:28]:
-    annotation = dict(
-        x=1, y=startplace,
-        text=i,
-        font=dict(family="Arial", size=15, color="#FAFAFA"),
-        showarrow=False,
-        xanchor='left',
-        align='left'
-    )
-    startplace += 1
-    annotations.append(annotation)
-fig.update_layout(annotations=annotations)  # Add annotations to the figure
-fig.update_layout(legend=dict(
-    yanchor="bottom",
-    y=0.05,
-    xanchor="left",
-    x=0.95
-))
-st.plotly_chart(fig, use_container_width=True, height=900)
-
-st.write(
+    Women's increasing participation in the workforce has transformed societal norms, shifting away from traditional roles of homemaking. Today, women, both with and without children, perceive that those in high-income jobs may choose not to have children due to the high opportunity cost of potential earnings. 
+    This reflects the significance of financial considerations and career aspirations in the decision-making process surrounding childlessness. Furthermore, there is a shared recognition that having children can potentially act as a career impediment for women. 
+    When considering the expense of raising children, there is a slight difference in opinion between women with and without children, indicating varied perspectives on this matter.
     """
-Health concerns received mixed ratings. Some questions indicated that health risks and age-related fertility decline were recognized as factors influencing women's decisions about having children, albeit not to a significant extent."""
 )
+
+st.subheader("Choice and perception")
+
+st.plotly_chart(plot_choice_factors(), use_container_width=True, height=400)
+
+st.write("""
+Women, regardless of their parental status, hold the belief that choosing not to have a child is a valid decision, indicating a shared understanding and respect for individual choices. 
+Moreover, there is a strong consensus among women that it is reasonable for a woman to decide against having a child, reflecting societal acceptance and recognition of diverse paths to fulfillment. 
+""")
+
+st.subheader("External influences")
+
+st.plotly_chart(plot_external_influences_factors(), use_container_width=True, height=400)
+
+st.write("""
+Women, both with and without children, recognize the societal pressure that exists around motherhood.
+However, it is noteworthy that peer pressure has a minimal impact on a woman's decision to remain childless. 
+This underscores the importance of honoring women's autonomy and personal agency in determining their path to parenthood, regardless of external influences. 
+""")
+
+st.subheader("Health factors")
+
+st.plotly_chart(plot_health_factors(), use_container_width=True, height=400)
+
+st.write("""
+The prime years for women, typically around the age of 27, coincide with their peak physical and reproductive capabilities. It is during this period that many women choose to have their first child. 
+This decision is often influenced by the awareness of the potential health risks associated with delayed motherhood beyond the age of 35. 
+Recognizing the significance of timing and the consideration of health-related factors, women often prioritize starting a family before the age of 35 to mitigate potential complications. 
+
+""")
 
 st.header("Future consequences")
 st.write(
     """
 As birth rates decline, the average age of the population increases. This demographic shift poses challenges for healthcare systems, pension programs, and social welfare services. The proportion of older adults grows, putting pressure on the working-age population to support the elderly."""
 )
+
+from PIL import Image
+manIcon = Image.open("man.png")
+womanIcon = Image.open("woman.png")
+swissIcon = Image.open("schweiz.png")
 
 colorscale = [
     [0, '#00FFFF'],  # light cyan
@@ -264,6 +181,7 @@ layout = go.Layout(
     ),
     barmode="overlay",
     bargap=0.1,
+    height=600
 )
 fig.update_layout(layout)
 fig.update_traces(
@@ -322,13 +240,84 @@ fig.add_trace(
     )
 )
 
+# Add annotation for woman icon
+fig.add_layout_image(
+    dict(
+        source=womanIcon,
+        xref="x",
+        yref="y",
+        x=400_000,  # x-coordinate of the woman icon
+        y='90-94',  # y-coordinate of the woman icon (using the first age value)
+        sizex=100_000,  # width of the woman icon
+        sizey=10,  # height of the woman icon
+        xanchor="right",  # anchor point for the x-coordinate
+        yanchor="middle",  # anchor point for the y-coordinate
+        opacity=1,
+        layer="above"
+    )
+)
+# Add annotation for woman icon
+fig.add_layout_image(
+    dict(
+        source=manIcon,
+        xref="x",
+        yref="y",
+        x=-300_000,  # x-coordinate of the woman icon
+        y='90-94',  # y-coordinate of the woman icon (using the first age value)
+        sizex=100_000,  # width of the woman icon
+        sizey=10,  # height of the woman icon
+        xanchor="right",  # anchor point for the x-coordinate
+        yanchor="middle",  # anchor point for the y-coordinate
+        opacity=1,
+        layer="above"
+    )
+)
+# Add annotation for woman icon
+fig.add_layout_image(
+    dict(
+        source=swissIcon,
+        xref="x",
+        yref="y",
+        x=-300_000,  # x-coordinate of the woman icon
+        y='5-9',  # y-coordinate of the woman icon (using the first age value)
+        sizex=75_000,  # width of the woman icon
+        sizey=8,  # height of the woman icon
+        xanchor="right",  # anchor point for the x-coordinate
+        yanchor="middle",  # anchor point for the y-coordinate
+        opacity=1,
+        layer="above"
+    )
+)
+
+fig.add_annotation(x=200_000, y='15-19',
+            text="Entering Workforce <br> Generation Z",
+            showarrow=True,
+            arrowhead=2,
+            arrowcolor='#FAFAFA',
+            xref="x", 
+            yref='y',
+            axref="x", 
+            ayref='y',
+            ax=325_000,
+            ay='15-19',
+            )
+
+fig.add_annotation(x=-325_000, y='55-59',
+            text="Leaving Workforce <br> Generation X / Baby Boomer",
+            showarrow=True,
+            arrowhead=2,
+            arrowcolor='#FAFAFA',
+            xref="x", 
+            yref='y',
+            axref="x", 
+            ayref='y',
+            ax=-310_000,
+            ay='70-74',
+            )
 
 
-
-
-
-st.plotly_chart(fig, use_container_width=True)
-st.caption(
+st.plotly_chart(fig, use_container_width=True, height=800)
+st.write(
     """
 As you can see in the age population pyramid, the highlighted age groups 50 to 59 are the biggest groups. In 10 years time these people will retire and leave the workforce.
 To compensate for the loss of workforce, the amount of people from the younger generations between 10 to 19 years must be at least the same amount as the people retiring.
@@ -336,24 +325,14 @@ But this is not the case. The amount of people entering the workforce is much lo
 """
 )
 
-life_expectancy_df = pd.read_csv("./data_clean/life_expectancy_switzerland.csv")
-fig = px.line(
-    life_expectancy_df,
-    x="Year",
-    y="Life expectancy at birth (historical)",
-    title="Life Expectancy and median age in Switzerland",
-)
-
-median_age = pd.read_csv("./data_clean/median_age_switzerland.csv")
-fig.add_scatter(x=median_age["Year"], y=median_age["median_age"], mode="lines")
-
-st.plotly_chart(fig, use_container_width=True)
-st.caption(
-    """To add to the problem of the elderly to youngster ratio, as evident from this graph, the life expectancy and median age are increasing. This means that the elderly will be in need of care for a longer period of time."""
-)
-
 st.write(
-    """A shrinking workforce can lead to economic slowdowns and reduced productivity. With fewer young people entering the labor market, there may be a shortage of skilled workers in various industries. This can hinder economic growth and innovation. The continuing decline in birth rates will inevitably bring about cultural and social transformations. With smaller family sizes becoming the norm, societal structures and dynamics will undergo significant changes. With fewer children being born, the transmission of cultural practices, languages, and values may be at risk. This can lead to a loss of cultural diversity and potentially reshape societal norms and identities.
+    """A shrinking workforce can lead to economic slowdowns and reduced productivity. With fewer young people entering the labor market, there may be a shortage of skilled workers in various industries. 
+    This can hinder economic growth and innovation. The continuing decline in birth rates will inevitably bring about cultural and social transformations. 
+    With smaller family sizes becoming the norm, societal structures and dynamics will undergo significant changes. 
+    With fewer children being born, the transmission of cultural practices, languages, and values may be at risk. 
+    This can lead to a loss of cultural diversity and potentially reshape societal norms and identities.
+    To add to the problem of the elderly to youngster ratio, the life expectancy and median age because of medical advancements and overall healthcare improvements are increasing. 
+    This means that the elderly will be in need of care for a longer period of time.
 """
 )
 

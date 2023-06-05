@@ -1,0 +1,8 @@
+unique_values,counts
+Married,49
+married_single_not,1
+"Single, but not in a relationship",48
+single_not_single_in,1
+"Single, but in a relationship",19
+single_in_divorce,1
+Divorced,8
