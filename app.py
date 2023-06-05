@@ -303,7 +303,7 @@ fig.add_annotation(x=200_000, y='15-19',
             )
 
 fig.add_annotation(x=-325_000, y='55-59',
-            text="Leaving Workforce <br> Generation X / Baby Boomer",
+            text="Leaving Workforce <br> Generation X",
             showarrow=True,
             arrowhead=2,
             arrowcolor='#FAFAFA',
