@@ -131,7 +131,7 @@ def plot_financial_factors():
     for i in stacked_df['text'][:2]:
         annotation = dict(
             x=1, y=startplace,
-            text=i,
+            text=f'<b>{i}</b>',
             font=dict(family="Arial", size=14, color="#FAFAFA"),
             showarrow=False,
             xanchor='left',
@@ -141,11 +141,13 @@ def plot_financial_factors():
         annotations.append(annotation)
     fig.update_layout(annotations=annotations, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')  # Add annotations to the figure
     fig.update_layout(legend=dict(
+        orientation="h",
         yanchor="bottom",
-        y=0.05,
+        y=1.05,
         xanchor="left",
-        x=0.95,
+        x=0,
         traceorder="reversed",
+        font=dict(size=14)
     ), legend_title_text='',
     
     )
@@ -164,7 +166,7 @@ def plot_choice_factors():
     for i in stacked_df['text'][2:4]:
         annotation = dict(
             x=1, y=startplace,
-            text=i,
+            text=f'<b>{i}</b>',
             font=dict(family="Arial", size=14, color="#FAFAFA"),
             showarrow=False,
             xanchor='left',
@@ -174,11 +176,13 @@ def plot_choice_factors():
         annotations.append(annotation)
     fig.update_layout(annotations=annotations, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')  # Add annotations to the figure
     fig.update_layout(legend=dict(
+        orientation="h",
         yanchor="bottom",
-        y=0.05,
+        y=1.05,
         xanchor="left",
-        x=0.95,
+        x=0,
         traceorder="reversed",
+        font=dict(size=14)
     ), legend_title_text='',
     
     )
@@ -199,7 +203,7 @@ def plot_external_influences_factors():
     for i in stacked_df['text'][4:6]:
         annotation = dict(
             x=1, y=startplace,
-            text=i,
+            text=f'<b>{i}</b>',
             font=dict(family="Arial", size=14, color="#FAFAFA"),
             showarrow=False,
             xanchor='left',
@@ -209,11 +213,13 @@ def plot_external_influences_factors():
         annotations.append(annotation)
     fig.update_layout(annotations=annotations, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')  # Add annotations to the figure
     fig.update_layout(legend=dict(
+        orientation="h",
         yanchor="bottom",
-        y=0.05,
+        y=1.05,
         xanchor="left",
-        x=0.95,
+        x=0,
         traceorder="reversed",
+        font=dict(size=14)
     ), legend_title_text='',
     
     )
@@ -234,7 +240,7 @@ def plot_health_factors():
     for i in stacked_df['text'][6:8]:
         annotation = dict(
             x=1, y=startplace,
-            text=i,
+            text=f'<b>{i}</b>',
             font=dict(family="Arial", size=14, color="#FAFAFA"),
             showarrow=False,
             xanchor='left',
@@ -244,11 +250,13 @@ def plot_health_factors():
         annotations.append(annotation)
     fig.update_layout(annotations=annotations, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')  # Add annotations to the figure
     fig.update_layout(legend=dict(
+        orientation="h",
         yanchor="bottom",
-        y=0.05,
+        y=1.05,
         xanchor="left",
-        x=0.95,
+        x=0,
         traceorder="reversed",
+        font=dict(size=14)
     ), legend_title_text='',
     
     )
