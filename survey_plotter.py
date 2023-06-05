@@ -124,10 +124,10 @@ def plot_financial_factors():
 
     stacked_df = pd.read_csv("./data_clean/stacked_df_v2.csv")
     fig = px.bar(stacked_df[stacked_df['text'].isin(stacked_df['text'][:2])], x="0", y="text", color='hasChild', orientation='h', barmode='group', color_discrete_sequence=colorscale, text_auto=True)
-    fig.update_layout(width=800, height=400, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargap=0.6, xaxis_title="Average rating", yaxis_title="Statements")
+    fig.update_layout(width=800, height=450, xaxis=dict(range=[1, 5]), yaxis=dict(visible=False), bargap=0.5, xaxis_title="Average rating", yaxis_title="Statements")
 
     annotations = []  # List to store annotations
-    startplace = 0.4
+    startplace = 0.5
     for i in stacked_df['text'][:2]:
         annotation = dict(
             x=1, y=startplace,
