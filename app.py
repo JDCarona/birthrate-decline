@@ -15,7 +15,7 @@ css='''
 st.markdown(css, unsafe_allow_html=True)
 
 st.title("Falling Behind: A Global Look at Declining Birth Rates and its Consequences")
-st.caption('5th June 2023. Jonathan Carona. Lucerne University of Applied Sciences. Data Story')
+st.caption('6th June 2023. Jonathan Carona. Lucerne University of Applied Sciences. Data Story')
 
 st.image("./jeremy.jpg")
 
