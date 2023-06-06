@@ -240,50 +240,49 @@ fig.add_trace(
     )
 )
 
-# Add annotation for woman icon
 fig.add_layout_image(
     dict(
         source=womanIcon,
         xref="x",
         yref="y",
-        x=400_000,  # x-coordinate of the woman icon
-        y='90-94',  # y-coordinate of the woman icon (using the first age value)
-        sizex=100_000,  # width of the woman icon
-        sizey=10,  # height of the woman icon
-        xanchor="right",  # anchor point for the x-coordinate
-        yanchor="middle",  # anchor point for the y-coordinate
+        x=400_000,  
+        y='90-94',  
+        sizex=100_000,  
+        sizey=10, 
+        xanchor="right",  
+        yanchor="middle",  
         opacity=1,
         layer="above"
     )
 )
-# Add annotation for woman icon
+
 fig.add_layout_image(
     dict(
         source=manIcon,
         xref="x",
         yref="y",
-        x=-300_000,  # x-coordinate of the woman icon
-        y='90-94',  # y-coordinate of the woman icon (using the first age value)
-        sizex=100_000,  # width of the woman icon
-        sizey=10,  # height of the woman icon
-        xanchor="right",  # anchor point for the x-coordinate
-        yanchor="middle",  # anchor point for the y-coordinate
+        x=-300_000,  
+        y='90-94',  
+        sizex=100_000,  
+        sizey=10, 
+        xanchor="right",  
+        yanchor="middle",  
         opacity=1,
         layer="above"
     )
 )
-# Add annotation for woman icon
+
 fig.add_layout_image(
     dict(
         source=swissIcon,
         xref="x",
         yref="y",
-        x=-300_000,  # x-coordinate of the woman icon
-        y='5-9',  # y-coordinate of the woman icon (using the first age value)
-        sizex=75_000,  # width of the woman icon
-        sizey=8,  # height of the woman icon
-        xanchor="right",  # anchor point for the x-coordinate
-        yanchor="middle",  # anchor point for the y-coordinate
+        x=-300_000,  
+        y='5-9',  
+        sizex=75_000,  
+        sizey=8,  
+        xanchor="right",  
+        yanchor="middle",  
         opacity=1,
         layer="above"
     )
