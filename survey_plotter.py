@@ -54,7 +54,7 @@ def plot_pictogram():
     return fig
 
 def plot_employment_status():
-    question_score = pd.read_csv('./ChildlessnessNJ.csv')
+    question_score = pd.read_csv('./data_clean/ChildlessnessNJ.csv')
 
     colorscale = ['#00FFFF', '#9370DB', '#BA55D3', '#00008B'] 
 
@@ -90,7 +90,7 @@ def plot_employment_status():
 
 def plot_children():
     colorscale = ['#00FFFF', '#483D8B'] 
-    question_score = pd.read_csv('./ChildlessnessNJ.csv')
+    question_score = pd.read_csv('./data_clean/ChildlessnessNJ.csv')
 
 
     # create data
@@ -98,7 +98,7 @@ def plot_children():
     group_names = question_score.value_counts('Currently have children').rename_axis('unique_values').reset_index(name='counts').unique_values
     percentages = ['60%', '40%']
 
-    plt.figure(figsize=(8, 4), dpi=112)
+    plt.figure(figsize=(8, 4), dpi=100)
     # Create a pie plot
     patches, texts = plt.pie(size_of_groups, labels=percentages, colors=colorscale, textprops={'fontsize': 18, 'weight': 'bold'})
 

@@ -17,7 +17,7 @@ st.markdown(css, unsafe_allow_html=True)
 st.title("Falling Behind: A Global Look at Declining Birth Rates and its Consequences")
 st.caption('6th June 2023. Jonathan Carona. Lucerne University of Applied Sciences. Data Story')
 
-st.image("./jeremy.jpg")
+st.image("./img/jeremy.jpg")
 
 st.write(
     """Imagine a world where the rhythm of life is changing. Where the joyous cries of newborns become less frequent, and the sound of children playing in the streets grows faint. This is the reality we face today, a world grappling with declining birth rates.
@@ -33,36 +33,32 @@ st.write(
     """To answer the first question, it is interesting to observe the birthrate evolution on a global scale. There is a consistent pattern of declining birth rates worldwide. This phenomenon is not limited to a particular region or culture; it is a global trend that has been observed over the past few decades."""
 )
 colorscale = [
-    [0, '#00FFFF'],  # light cyan
-    [0.25, '#BA55D3'],  # medium purple
-    [0.5, '#9370DB'],  # medium orchid
-    [0.75, '#483D8B'],  # dark slate blue
-    [1, '#00008B']  # dark blue
+    [0, '#00FFFF'],  
+    [0.25, '#BA55D3'],  
+    [0.5, '#9370DB'],  
+    [0.75, '#483D8B'],  
+    [1, '#00008B']  
 ]
 
 birth_rate_df = pd.read_csv("./data_clean/birth_rate_clean.csv")
 
-# use the choropleth mapbox trace type in plotly express
+
 fig = px.choropleth(
     birth_rate_df,
     locations="Country_Code",
     color="Birth_Rate",
-    animation_frame="Year",  # add animation slider
+    animation_frame="Year", 
     hover_name="Country_Name",
     range_color=[0, 4],
     color_continuous_scale=colorscale
 )
 
 
-# Remove antarctica
 fig.update_geos(fitbounds="locations", visible=False, showframe=False)
 fig.update_layout(geo=dict(bgcolor= 'rgba(0,0,0,0)'))
-# show the figure
 fig.update_layout(title="Birth Rate by Country (1960-2020)", coloraxis=dict(colorbar=dict(orientation='h', y=-0.15)), height=600)
 
 st.plotly_chart(fig, use_container_width=True, height=600)
-
-
 
 st.write(
     """Examining data from various countries, it is found that birth rates have been steadily decreasing, resulting in smaller family sizes. The statistics reveal a significant shift in demographic patterns that has far-reaching implications for societies across the globe.
@@ -143,26 +139,26 @@ As birth rates decline, the average age of the population increases. This demogr
 )
 
 from PIL import Image
-manIcon = Image.open("man.png")
-womanIcon = Image.open("woman.png")
-swissIcon = Image.open("schweiz.png")
+manIcon = Image.open("./img/man.png")
+womanIcon = Image.open("./img/woman.png")
+swissIcon = Image.open("./img/schweiz.png")
 
 colorscale = [
-    [0, '#00FFFF'],  # light cyan
-    [0.25, '#9370DB'],  # medium purple
-    [0.5, '#BA55D3'],  # medium orchid
-    [0.75, '#483D8B'],  # dark slate blue
-    [1, '#00008B']  # dark blue
+    [0, '#00FFFF'], 
+    [0.25, '#9370DB'], 
+    [0.5, '#BA55D3'],  
+    [0.75, '#483D8B'],  
+    [1, '#00008B']  
 ]
 colorscale_two = [
-    '#00FFFF',  # light cyan
-    '#9370db',  # medium purple
-    '#BA55D3',  # dark blue
-    '#483D8B',  # medium orchid
-    '#00008B',  # dark blue
+    '#00FFFF',  
+    '#9370db', 
+    '#BA55D3', 
+    '#483D8B', 
+    '#00008B',  
 ]
 
-swiss_pyramid = pd.read_csv("./Switzerland-2021.csv")
+swiss_pyramid = pd.read_csv("./data_clean/Switzerland-2021.csv")
 fig = px.bar(
     orientation="h",
     y=swiss_pyramid["Age"],
