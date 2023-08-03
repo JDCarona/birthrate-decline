@@ -60,7 +60,7 @@ and would be overwhelming for the reader to look at.
 
 ## Implementation choices
 
-## Layout and colors
+### Layout and colors
 
 The data story was done with streamlit, since I wanted to make the story accessible from a
 browser. I was going for a similar look like the website [medium]. I wanted it to look like a
@@ -99,7 +99,7 @@ Color In HEX Description
 #0E1117 Black (Background)
 ```
 
-## Charts
+### Charts
 
 **Birth Rate by Country (1960-2020)**
 
