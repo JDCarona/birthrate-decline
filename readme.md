@@ -6,6 +6,7 @@
 
 **06.06.2023**
 
+Link to project: https://jdcarona-birthrate-decline-app-4im7zs.streamlit.app/
 
 ## Motivation
 
